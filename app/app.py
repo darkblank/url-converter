@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from app.apis import api
 
@@ -11,5 +11,13 @@ def create_app(config_object):
     @app.route('/ping')
     def health_check():
         return jsonify(dict(ok='ok'))
+
+    @app.teardown_request
+    def teardown_sessions(exception):
+        ctx = request._get_current_object()
+        if hasattr(ctx, '_current_session'):
+            if exception:
+                ctx._current_session.rollback()
+            ctx._current_session.close()
 
     return app
