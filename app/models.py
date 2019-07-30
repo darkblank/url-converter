@@ -1,6 +1,6 @@
 import datetime
+import re
 import string
-from random import choice
 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -20,7 +20,12 @@ class Url(Base):
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     last_used_at = Column(DateTime, nullable=True)
 
-    def generate_unique_shorten_url(self):
+    @staticmethod
+    def is_valid_url_format(url):
+        pattern = re.compile('^[A-Za-z0-9]+$')
+        return bool(pattern.match(url))
+
+    def generate_unique_shorten_url_from_pk(self):
         chars = string.ascii_letters + string.digits
         n = self.id
         url = ''
