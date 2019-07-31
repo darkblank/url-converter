@@ -1,3 +1,6 @@
+from app.models import Url
+
+
 def test_create_short_url_without_custom_url(client):
     original_url = 'http://www.naver.com'
     r = client.post('api/urls', json=dict(original_url=original_url))
@@ -11,6 +14,12 @@ def test_create_short_url_with_custom_url(client):
     r = client.post('api/urls', json=dict(original_url=original_url, short_url=short_url))
     assert r.status_code == 200
     assert r.json['data']['short_url'] == short_url
+
+
+def test_get_urls(client, session):
+    r = client.get('api/urls')
+    assert r.status_code == 200
+    assert len(r.json['data']) == session.query(Url).count()
 
 
 def test_create_short_url_aleady_exists(client):

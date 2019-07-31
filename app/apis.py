@@ -1,11 +1,26 @@
 from flask import Blueprint, request, jsonify
 from sqlalchemy import exists
-from sqlalchemy.exc import IntegrityError
 
 from app.database import session
 from app.models import Url
 
 api = Blueprint('api', __name__)
+
+
+@api.route('/urls', methods=['GET'])
+def get_urls():
+    urls = session.query(Url).all()
+    return jsonify(
+        code='OK',
+        data=[dict(
+            pk=url.id,
+            original_url=url.original_url,
+            short_url=url.short_url,
+            hit_count=url.hit_count,
+            created_at=url.created_at,
+            last_used_at=url.last_used_at,
+        ) for url in urls]
+    )
 
 
 @api.route('/urls', methods=['POST'])
