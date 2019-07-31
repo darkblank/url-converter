@@ -3,6 +3,7 @@ import random
 import re
 import string
 import uuid
+from urllib.parse import urlparse
 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -24,11 +25,19 @@ class Url(Base):
     last_used_at = Column(DateTime(timezone=True), nullable=True)
 
     @staticmethod
-    def is_valid_url_format(url):
+    def is_valid_short_url(url):
         pattern = re.compile('^[A-Za-z0-9]+$')
         return bool(pattern.match(url))
+
+    @staticmethod
+    def is_valid_original_url_format(url):
+        parsed_url = urlparse(url)
+        return parsed_url.scheme in ['http', 'https', 'ftp'] and parsed_url.netloc != ''
 
     @staticmethod
     def generate_random_str(length=5):
         chars = string.ascii_letters + string.digits
         return ''.join((random.choice(chars) for x in range(length)))
+
+
+

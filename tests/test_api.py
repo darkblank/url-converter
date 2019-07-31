@@ -30,12 +30,16 @@ def test_create_short_url_aleady_exists(client):
     assert r.json['error'] == f'{short_url}은 이미 존재하는 url입니다'
 
 
+def test_create_short_url_with_invalid_original_url(client):
+    original_url = 'http:/www.naver.com'
+    r = client.post('api/urls', json=dict(original_url=original_url))
+    assert r.status_code == 422
+    assert r.json['error'] == '올바른 형식의 original_url을 입력해 주세요'
+
+
 def test_create_short_url_with_invalid_custom_url(client):
     original_url = 'https://www.naver.com'
     short_url = 'short_url'
     r = client.post('api/urls', json=dict(original_url=original_url, short_url=short_url))
     assert r.status_code == 422
     assert r.json['error'] == 'short_url은 알파벳과 숫자로만 입력해 주세요'
-
-
-
