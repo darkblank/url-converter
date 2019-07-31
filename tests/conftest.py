@@ -1,6 +1,7 @@
 import os
 
 import pytest
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 from app.app import create_app
 from app.database import get_engine
@@ -17,6 +18,7 @@ def app():
 
     app = create_app(config_object)
     engine = get_engine(config_object)
+    app.db = engine
     metadata = Base.metadata
     metadata.create_all(bind=engine)
     yield app
@@ -27,3 +29,10 @@ def app():
 def client(app):
     with app.test_client() as client:
         yield client
+
+
+@pytest.fixture(scope='function')
+def session(app):
+    session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=app.db))
+    yield session
+    session.remove()
