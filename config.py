@@ -22,5 +22,3 @@ config_env_map = {
     'production': Config,
     'test': TestConfig,
 }
-
-config_object = config_env_map[os.getenv('APP_ENV', 'production')]

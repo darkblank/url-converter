@@ -1,9 +1,13 @@
+import os
+
 from flask import request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.local import LocalProxy
 
-from config import config_object
+from config import config_env_map
+
+config_object = config_env_map[os.environ['APP_ENV']]
 
 
 def get_engine(config_object_name):
