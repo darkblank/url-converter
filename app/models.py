@@ -1,4 +1,5 @@
 import datetime
+import random
 import re
 import string
 
@@ -25,11 +26,7 @@ class Url(Base):
         pattern = re.compile('^[A-Za-z0-9]+$')
         return bool(pattern.match(url))
 
-    def generate_unique_shorten_url_from_pk(self):
+    @staticmethod
+    def generate_random_str(length=5):
         chars = string.ascii_letters + string.digits
-        n = self.id
-        url = ''
-        while n:
-            n, r = divmod(n, len(chars))
-            url += chars[r]
-        return url
+        return ''.join((random.choice(chars) for x in range(length)))
