@@ -1,7 +1,7 @@
 from app.app import create_app
-from config import DevelopmentConfig
+from config import config_object
 
-app = create_app(DevelopmentConfig)  # Todo: 동적으로 Config 불러올 수 있도록 수정
+app = create_app(config_object)
 
 if __name__ == '__main__':
     app.run()

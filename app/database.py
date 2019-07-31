@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.local import LocalProxy
 
-from config import DevelopmentConfig
+from config import config_object
 
 
 def get_engine(config_object_name):
@@ -14,8 +14,7 @@ def get_engine(config_object_name):
     return engine
 
 
-# Todo: 동적으로 Config 불러올 수 있도록 수정
-Session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=get_engine(DevelopmentConfig)))
+Session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=get_engine(config_object)))
 
 
 def get_session():
