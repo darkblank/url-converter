@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request
 
 from app.apis import api
+from app.views import view
 
 
 def create_app(config_object):
     app = Flask(__name__)
     app.config.from_object(config_object)
+    app.register_blueprint(view)
     app.register_blueprint(api, url_prefix='/api')
 
     @app.route('/ping')
