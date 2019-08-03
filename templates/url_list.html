@@ -13,7 +13,7 @@
                     $('#urls tbody').append(
                         '<tr>' +
                             '<td>'+ obj.original_url+'</td>' +
-                            '<td>'+ obj.short_url+'</td>' +
+                            '<td>'+ '{{ request.host_url }}' + obj.short_url+'</td>' +
                             '<td>'+ obj.hit_count+'</td>' +
                             '<td>'+ obj.created_at+'</td>' +
                             '<td>'+ obj.last_used_at+'</td>' +

@@ -29,7 +29,7 @@
                 dataType: 'json',
                 data: JSON.stringify(formData),
                 success: function(data) {
-                    var fullUrl = '{{ request.base_url }}' + data.data.short_url;
+                    var fullUrl = '{{ request.host_url }}' + data.data.short_url;
                     $('#text').html('생성된 URL: <input id="textbox-url" type=text value='+ fullUrl +'><button id="copy">복사</button>')
                 }, // success
 
