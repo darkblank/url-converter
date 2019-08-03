@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script>
+    $(function(){
+        $.ajax({
+            cache: false,
+            url: "/api/urls",
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            success: function(data) {
+                data.data.forEach(function(obj, index){
+                    $('#urls tbody').append(
+                        '<tr>' +
+                            '<td>'+ obj.original_url+'</td>' +
+                            '<td>'+ obj.short_url+'</td>' +
+                            '<td>'+ obj.hit_count+'</td>' +
+                            '<td>'+ obj.created_at+'</td>' +
+                            '<td>'+ obj.last_used_at+'</td>' +
+                        '</tr>'
+                    )
+                });
+            },
+            error: function(xhr, textstatus, errorThrown) {
+                alert(xhr.responseJSON.error);
+            }
+        })
+    })
+    </script>
+{% endblock %}
+{% block title %}URL LIST{% endblock %}
+{% block content %}
+    <table class="table" id="urls">
+        <thead>
+            <tr>
+                <td>Original URL</td>
+                <td>Short URL</td>
+                <td>Hit count</td>
+                <td>created at</td>
+                <td>last used at</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

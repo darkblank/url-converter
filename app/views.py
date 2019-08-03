@@ -13,6 +13,11 @@ def index():
     return render_template('index.html')
 
 
+@view.route('/view/urls')
+def url_list():
+    return render_template('url_list.html')
+
+
 @view.route('/<string:short_url>')
 def redirect_to_original_url(short_url):
     obj = session.query(Url).filter(Url.short_url == short_url).first()
