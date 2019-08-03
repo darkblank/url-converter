@@ -42,4 +42,4 @@ def test_create_short_url_with_invalid_custom_url(client):
     short_url = 'short_url'
     r = client.post('api/urls', json=dict(original_url=original_url, short_url=short_url))
     assert r.status_code == 422
-    assert r.json['error'] == 'short_url은 알파벳과 숫자로만 입력해 주세요'
+    assert r.json['error'] == 'short url은 알파벳과 숫자로만 입력해 주세요'

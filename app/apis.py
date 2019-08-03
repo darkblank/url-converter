@@ -38,7 +38,7 @@ def create_short_url():
 
     if short_url:
         if not Url.is_valid_short_url(short_url):
-            return jsonify(error='short_url은 알파벳과 숫자로만 입력해 주세요'), 422
+            return jsonify(error='short url은 알파벳과 숫자로만 입력해 주세요'), 422
         if session.query(exists().where(Url.short_url == short_url)).scalar():
             return jsonify(error=f'{short_url}은 이미 존재하는 url입니다'), 409
     else:
