@@ -24,7 +24,7 @@ Session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=ge
 def get_session():
     ctx = request._get_current_object()
     _session = Session()
-    setattr(ctx, '_current_session', _session)  # app teardown 시 request ctx 에서 세션을 핸들링하기 위함
+    setattr(ctx, '_current_session', _session)  # app teardown 시 request ctx 에서 세션을 핸들링하기 위함. -> create_app()
     return _session
 
 

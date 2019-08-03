@@ -5,7 +5,7 @@ from app.views import view
 
 
 def create_app(config_object):
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='../templates', static_folder='../static')
     app.config.from_object(config_object)
     app.register_blueprint(view)
     app.register_blueprint(api, url_prefix='/api')

@@ -1,12 +1,16 @@
 import datetime
 
-from flask import Blueprint, jsonify, redirect
-from sqlalchemy import exists
+from flask import Blueprint, jsonify, redirect, render_template
 
 from app.database import session
 from app.models import Url
 
 view = Blueprint('view', __name__)
+
+
+@view.route('/')
+def index():
+    return render_template('base.html')
 
 
 @view.route('/<string:short_url>')

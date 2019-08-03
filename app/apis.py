@@ -11,9 +11,6 @@ api = Blueprint('api', __name__)
 @api.route('/urls', methods=['GET'])
 def get_urls():
     urls = session.query(Url).all()
-    url = session.query(Url).first()
-    print(type(url.created_at))
-    print(url.created_at)
     return jsonify(
         code='OK',
         data=[dict(
@@ -34,7 +31,7 @@ def create_short_url():
     short_url = data.get('short_url')
 
     if not original_url:
-        return jsonify(error='original url을 입력해 주세요'), 412
+        return jsonify(error='original url을 입력해 주세요'), 400
 
     if not Url.is_valid_original_url_format(original_url):
         return jsonify(error='올바른 형식의 original_url을 입력해 주세요'), 422

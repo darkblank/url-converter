@@ -6,7 +6,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql://aiden:apfhd@localhost/dev_shortener'
     # ETC
     SERVER_NAME = 'localhost:5000'
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     ENV = 'production'
 
