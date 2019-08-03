@@ -10,7 +10,7 @@ api = Blueprint('api', __name__)
 
 @api.route('/urls', methods=['GET'])
 def get_urls():
-    urls = session.query(Url).all()
+    urls = session.query(Url).order_by(Url.created_at.desc())
     return jsonify(
         code='OK',
         data=[dict(
