@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    {% block head %}{% endblock %}
 </head>
 <body>
 		<div>
