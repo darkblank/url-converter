@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_wtf import CSRFProtect
 
 from app.apis import api
@@ -17,6 +17,10 @@ def create_app(config_object):
     @app.route('/ping')
     def health_check():
         return jsonify(dict(ok='ok'))
+
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return render_template('404.html')
 
     @app.teardown_request
     def teardown_sessions(exception):

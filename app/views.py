@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Blueprint, jsonify, redirect, render_template
+from flask import Blueprint, redirect, render_template
 
 from app.database import session
 from app.models import Url
@@ -22,7 +22,7 @@ def url_list():
 def redirect_to_original_url(short_url):
     obj = session.query(Url).filter(Url.short_url == short_url).first()
     if not obj:
-        return jsonify(error='Url does not exist'), 404
+        return render_template('404.html')
 
     session.query(Url).filter(
         Url.short_url == short_url
