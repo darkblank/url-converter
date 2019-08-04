@@ -29,3 +29,43 @@ $ docker build -t <image_name> .
 ```
 $ docker run --rm -it --net=host <image_name>
 ```
+## Docker 없이 실행
+1. 로컬 환경에 postgresql이 설치되어 있어야 합니다.
+2. python 3.7.1 을 설치합니다.(pyenv같은 가상환경을 사용하면 좋습니다.)
+3. requirements 설치
+```
+$ pip install -r requirements.txt
+```
+4. 데이터베이스 세팅
+```
+create database dev_shortener;
+create user aiden with encrypted password 'apfhd';
+grant all privileges on database dev_shortener to aiden;
+
+# 테스트 DB
+create database test_shortener;
+create user aiden with encrypted password 'apfhd';
+grant all privileges on database dev_shortener to aiden;
+```
+5. 환경변수 설정
+```
+$ export APP_ENV='production'
+```
+6. DB table 생성
+```
+# root 폴더 위치에서 실행
+$ python create_db.py
+```
+7. app 실행
+```
+# root 폴더 위치에서 실행
+$ python run.py
+```
+---
+8. Test
+```
+# 환경변수 변경
+$ export APP_ENV='test'
+# root 폴더 위치에서 실행
+$ python -m pytest tests
+```
