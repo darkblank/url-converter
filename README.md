@@ -45,7 +45,7 @@ grant all privileges on database dev_shortener to aiden;
 # 테스트 DB
 create database test_shortener;
 create user aiden with encrypted password 'apfhd';
-grant all privileges on database dev_shortener to aiden;
+grant all privileges on database test_shortener to aiden;
 ```
 5. 환경변수 설정
 ```
