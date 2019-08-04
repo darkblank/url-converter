@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, request, render_template
+import datetime
+
+from flask import Flask, jsonify, request, render_template, json
 from flask_wtf import CSRFProtect
 
 from app.apis import api
@@ -13,6 +15,7 @@ def create_app(config_object):
     app.register_blueprint(view)
     app.register_blueprint(api, url_prefix='/api')
     csrf.init_app(app)
+    app.json_encoder = CustomJsonEncoder
 
     @app.route('/ping')
     def health_check():
@@ -31,3 +34,10 @@ def create_app(config_object):
             ctx._current_session.close()
 
     return app
+
+
+class CustomJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.date):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        return super(CustomJsonEncoder, self).default(obj)

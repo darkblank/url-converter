@@ -1,9 +1,7 @@
 from flask import Blueprint, request, jsonify
-from sqlalchemy import exists
 
 from app.database import session
 from app.models import Url
-from utils import date_to_str
 
 api = Blueprint('api', __name__)
 
@@ -18,8 +16,8 @@ def get_urls():
             original_url=url.original_url,
             short_url=url.short_url,
             hit_count=url.hit_count,
-            created_at=date_to_str(url.created_at),
-            last_used_at=date_to_str(url.last_used_at),
+            created_at=url.created_at,
+            last_used_at=url.last_used_at,
         ) for url in urls]
     )
 
