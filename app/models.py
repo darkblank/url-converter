@@ -49,3 +49,11 @@ class Url(Base):
             self.short_url = Url.generate_random_str()
             if self.is_unique_short_url():
                 return self
+
+    def update_hit_count_and_last_used_at(self):
+        session.query(Url).filter(
+            Url.short_url == self.short_url
+        ).update(
+            {Url.hit_count: Url.hit_count + 1, Url.last_used_at: datetime.datetime.now()}
+        )
+        session.commit()

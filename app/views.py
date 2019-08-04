@@ -22,13 +22,7 @@ def url_list():
 def redirect_to_original_url(short_url):
     obj = session.query(Url).filter(Url.short_url == short_url).first()
     if not obj:
-        return render_template('404.html')
+        return render_template('404.html'), 404
 
-    session.query(Url).filter(
-        Url.short_url == short_url
-    ).update(
-        {Url.hit_count: Url.hit_count + 1, Url.last_used_at: datetime.datetime.now()}
-    )
-    session.commit()
-
+    obj.update_hit_count_and_last_used_at()
     return redirect(obj.original_url)
