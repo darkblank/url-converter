@@ -30,4 +30,3 @@ def test_redirect_to_url(client, session, url):
 def test_redirect_to_url_404(client):
     r = client.get(f'/doesNotExist')
     assert r.status_code == 404
-    assert r.json['error'] == 'Url does not exist'
