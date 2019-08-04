@@ -17,6 +17,7 @@ def app():
     config_object = config_env_map[env]
 
     app = create_app(config_object)
+    app.config['WTF_CSRF_METHODS'] = []
     engine = get_engine(config_object)
     app.db = engine
     metadata = Base.metadata
