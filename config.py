@@ -8,6 +8,7 @@ class Config:
     SERVER_NAME = 'localhost:5000'
     DEBUG = True
     TESTING = False
+    SECRET_KEY = 'vwjvhpr9K/b7LEDvloYU+w=='
     ENV = 'production'
 
 

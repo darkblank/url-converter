@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request
+from flask_wtf import CSRFProtect
 
 from app.apis import api
 from app.views import view
+
+csrf = CSRFProtect()
 
 
 def create_app(config_object):
@@ -9,6 +12,7 @@ def create_app(config_object):
     app.config.from_object(config_object)
     app.register_blueprint(view)
     app.register_blueprint(api, url_prefix='/api')
+    csrf.init_app(app)
 
     @app.route('/ping')
     def health_check():
