@@ -1,6 +1,3 @@
-import os
-
-
 class Config:
     # Database
     SQLALCHEMY_DATABASE_URI = 'postgresql://aiden:apfhd@localhost/dev_shortener'
