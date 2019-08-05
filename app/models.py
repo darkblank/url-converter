@@ -41,14 +41,16 @@ class Url(Base):
         chars = string.ascii_letters + string.digits
         return ''.join((random.choice(chars) for x in range(length)))
 
-    def is_unique_short_url(self):
-        return not session.query(exists().where(Url.short_url == self.short_url)).scalar()
+    @staticmethod
+    def is_unique_short_url(short_url):
+        return not session.query(exists().where(Url.short_url == short_url)).scalar()
 
-    def inject_unique_short_url(self):
+    @staticmethod
+    def generate_unique_short_url():
         while True:
-            self.short_url = Url.generate_random_str()
-            if self.is_unique_short_url():
-                return self
+            short_url = Url.generate_random_str()
+            if Url.is_unique_short_url(short_url):
+                return short_url
 
     def update_hit_count_and_last_used_at(self):
         session.query(Url).filter(

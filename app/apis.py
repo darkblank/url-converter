@@ -34,16 +34,15 @@ def create_short_url():
     if not Url.is_valid_original_url_format(original_url):
         return jsonify(error='올바른 형식의 original_url을 입력해 주세요'), 422
 
-    obj = Url(original_url=original_url, short_url=short_url)
-
-    if obj.short_url:
-        if not Url.is_valid_short_url(obj.short_url):
+    if short_url:
+        if not Url.is_valid_short_url(short_url):
             return jsonify(error='short url은 알파벳과 숫자로만 입력해 주세요'), 422
-        if not obj.is_unique_short_url():
+        if not Url.is_unique_short_url(short_url):
             return jsonify(error=f'{short_url}은 이미 존재하는 url입니다'), 409
     else:
-        obj.inject_unique_short_url()
+        short_url = Url.generate_unique_short_url()
 
+    obj = Url(original_url=original_url, short_url=short_url)
     session.add(obj)
     session.commit()
 
